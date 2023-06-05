@@ -1,16 +1,18 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
+#include <string.h>
 #include "hal.h"
 #include "randombytes.h"
 #include "ref.h"
+#include "m4.h"
 
 #define Q 8380417
 
 int test_mulmod(void){
   int32_t a,b,bmont;
   int32_t cref, c;
-  randombytes(&a, sizeof(int32_t));
+  randombytes((uint8_t *)&a, sizeof(int32_t));
 
   // twiddle factor for the first NTT layer
   // 4808194 ^ 4 = 1 mod q
@@ -36,7 +38,7 @@ int test_butterfly(void){
   int32_t a[2];
   int32_t aref[2];
   int32_t b, bmont;
-  randombytes(a, sizeof(a));
+  randombytes((uint8_t *)a, sizeof(a));
   memcpy(aref, a, sizeof(a));
 
   // twiddle factor for the first NTT layer
@@ -60,7 +62,7 @@ int test_nttlayer1(void){
   int32_t a[256];
   int32_t aref[256];
   int err = 0;
-  randombytes(a, sizeof(a));
+  randombytes((uint8_t *)a, sizeof(a));
   memcpy(aref, a, sizeof(a));
 
   nttlayer1(a);
@@ -117,7 +119,7 @@ int test_ntt(void){
   int32_t a[256];
   int32_t aref[256];
   int err = 0;
-  randombytes(a, sizeof(a));
+  randombytes((uint8_t *)a, sizeof(a));
   memcpy(aref, a, sizeof(a));
 
   t0 = hal_get_time();

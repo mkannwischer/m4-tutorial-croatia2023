@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 #include "hal.h"
 #include "chacha20.h"
 
@@ -51,8 +52,17 @@ const unsigned char nonce[CHACHA20_NONCEBYTES] = {
 
 int test(void){
   unsigned char out[OUTLEN];
+  uint64_t t0, t1;
+  unsigned char str[100];
+
+  t0 = hal_get_time();
   crypto_stream_chacha20(out, OUTLEN, nonce, key);
-  
+  t1 = hal_get_time();
+  sprintf(str,"crypto_stream_chacha20: %llu cycles (note that these are meaningless on qemu)", t1-t0);
+  hal_send_str(str);
+
+
+
 
   if(memcmp(out, cmp, OUTLEN)){
     hal_send_str("ERROR chacha20");

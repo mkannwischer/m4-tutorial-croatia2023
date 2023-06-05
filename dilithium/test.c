@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdint.h>
 #include "hal.h"
 #include "randombytes.h"
 #include "ref.h"
@@ -111,13 +112,21 @@ const int32_t twiddles_asm[255] = {
 
 
 int test_ntt(void){
+  uint64_t t0, t1;
+  unsigned char str[100];
   int32_t a[256];
   int32_t aref[256];
   int err = 0;
   randombytes(a, sizeof(a));
   memcpy(aref, a, sizeof(a));
 
+  t0 = hal_get_time();
   ntt(a, twiddles_asm);
+  t1 = hal_get_time();
+  sprintf(str,"Dilithium ntt: %llu cycles (note that these are meaningless on qemu)", t1-t0);
+  hal_send_str(str);
+
+
   ntt_ref(aref);
 
 

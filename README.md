@@ -75,6 +75,12 @@ make run-qemu
 If you happen to have a STM32F407 discovery board, you can also use that for the
 tutorial.
 Make sure the board is hooked up as described in https://github.com/mkannwischer/STM32-getting-started/.
+Build the opencm3 library:
+```
+cd libopencm3
+make
+cd ..
+```
 
 You can flash and run the example by
 ```

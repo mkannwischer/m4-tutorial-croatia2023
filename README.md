@@ -102,4 +102,4 @@ in another terminal and pressing the reset button of the board.
 
 # Tutorial instructions
 
-Follow the instructions on the slides (XXX: will be posted before the tutorial)
+Follow the instructions on the slides (https://kannwischer.eu/croatia2023/20230608_croatia_assignment.pdf).
